@@ -1,0 +1,15 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "server-install": "cd server && npm install",
+    "client-install": "cd client && npm install",
+    "server": "npm start --prefix server",
+    "client": "npm start --prefix client",
+    "start": "concurrently \"PORT=9000 npm run server\" \"PORT=3000 npm run client\""
+  },
+  "dependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
