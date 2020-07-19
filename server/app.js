@@ -1,41 +1,74 @@
-var createError = require('http-errors');
+// 
+// app.js
+//
+// Functions as a web-server, intended to serve the REACT front-end.
+// 
+// Author: Luis Love
+//
+
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
+var serveIndex = require('serve-index');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
-// view engine setup
+
+// View Engine Setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
+
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+
+
+// Lists contents of 'public' directory as the server's root directory
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', 
+          express.static(path.join(__dirname, 'public')), 
+          serveIndex(path.join(__dirname, 'public'), 
+                     { 'icons': true })
+        );
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
+// Handle 404 error by sending custom response
 app.use(function(req, res, next) {
-  next(createError(404));
+  res.status(404);
+
+  // HTML response
+  if (req.accepts('html')) {
+    res.render('error_404', { title: '404 Error', url: req.url });
+  }
+  // JSON response
+  else if (req.accepts('json')) {
+    res.send({ error: 'Not Found!' });
+  }
+  // Plain-text response
+  else {
+    res.type('txt').send('Not Found!');
+  }
 });
 
-// error handler
+// Handle 500 error by sending custom response
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.status(500);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  // HTML response
+  if (req.accepts('html')) {
+    res.render('error_500', { title: '500 Error' });
+  }
+  // JSON response
+  else if (req.accepts('json')) {
+    res.send({ error: 'Something went wrong!' });
+  }
+  // Plain-text response
+  else {
+    res.type('txt').send('Something went wrong!');
+  }
 });
+
 
 module.exports = app;
