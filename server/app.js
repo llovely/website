@@ -8,34 +8,36 @@
 
 var express = require('express');
 var path = require('path');
-var serveIndex = require('serve-index');
 var logger = require('morgan');
+var serveIndex = require('serve-index');
+var cors = require('cors');
 
+var mailRouter = require("./routes/email");
 
 var app = express();
-
 
 // View Engine Setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-
 app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
 // Lists contents of 'public' directory as the server's root directory
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', 
-          express.static(path.join(__dirname, 'public')), 
-          serveIndex(path.join(__dirname, 'public'), 
-                     { 'icons': true })
-        );
+app.use('/', mailRouter);   // Sends contact form info to be sent via email
+app.use('/',
+  express.static(path.join(__dirname, 'public')),
+  serveIndex(path.join(__dirname, 'public'),
+    { 'icons': true })
+);
 
 
 // Handle 404 error by sending custom response
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.status(404);
 
   // HTML response
@@ -53,7 +55,7 @@ app.use(function(req, res, next) {
 });
 
 // Handle 500 error by sending custom response
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(500);
 
   // HTML response
