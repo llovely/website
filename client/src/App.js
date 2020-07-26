@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import Navigation from './components/navigation/Navigation';
+import SomeRandomText from './components/SomeRandomText';
+
+// Menu Icons (for Mobile)
+import { PAGE_HOME_ID,
+         PAGE_EDUCATION_ID,
+         PAGE_WORK_ID,
+         PAGE_PROJECTS_ID,
+         PAGE_CONTACT_ID } from './components/constants/Constants';
+
+function App() {  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Under Construction!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navigation/>
+      <div>
+        <SomeRandomText color='var(--bg-color-1)' id={PAGE_HOME_ID} />
+        <SomeRandomText color='var(--bg-color-2)'   id={PAGE_EDUCATION_ID} />
+        <SomeRandomText color='var(--bg-color-1)' id={PAGE_WORK_ID} />
+        <SomeRandomText color='var(--bg-color-2)'    id={PAGE_PROJECTS_ID} />
+        <SomeRandomText color='var(--bg-color-1)'   id={PAGE_CONTACT_ID} />
+      </div>
     </div>
   );
 }
+
 
 export default App;
