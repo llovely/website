@@ -1,0 +1,194 @@
+
+/*
+ * Navigation bar and sub-menu block containers
+*/
+.nav-bar, .nav-sub-menu-block {
+  margin: auto;
+  margin-top: 10px;
+  height: var(--nav-size);
+  width: 95%;
+  border: var(--border);
+  border-radius: 15px;
+  position: fixed;
+  top: 0; 
+  right: 0;
+  left: 0;
+  transition: all var(--speed) ease;
+}
+
+.nav-bar {
+  background-color: var(--bg-color-1);
+}
+
+.nav-sub-menu-block {
+  background-color: var(--bg-color-2);
+  /* border-color: var(--bg-color-2); */
+}
+
+.nav-sub-menu-block:hover {
+  filter: brightness(1.5);
+}
+
+.nav-sub-menu-block:hover svg {
+  filter: brightness(1.5);
+}
+
+
+/*
+ * Component spacing
+*/
+.nav-even-space {
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between; 
+}
+
+.nav-position-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1em;
+}
+
+.nav-position-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 1em;
+}
+
+
+/*
+ * Navigation bar name
+*/
+.nav-menu-name {
+  /* padding-left: 2em;  */
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--text-color-1);
+}
+
+
+/*
+ * Main-menu components
+*/
+.nav-main-menu-container {
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  /* ADD PADDING-RIGHT HERE FOR WHEN IN DESKTOP MODE (LOOKS BETTER)... */
+}
+
+.nav-main-menu-name {
+  --button-size: calc(var(--nav-size) * 0.5);
+  height: var(--button-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color-1);
+  font-size: 15px;
+  padding-right: 2em;
+  position: relative;
+  top: 25%;
+}
+
+.nav-main-menu-name:hover {
+  filter: brightness(1.5);
+}
+
+
+/*
+ * Sub-menu components
+*/
+.nav-sub-menu-name {
+  color: var(--text-color-1);
+  padding-left: 1em; 
+  font-size: 15px;
+  font-weight: bold;
+  position: relative;
+  top: 30px;
+}
+
+.nav-sub-menu-icon {
+  font-weight: bold;
+  padding-right: 1em; 
+  position: relative;
+  top: 30px;
+}
+
+.nav-sub-menu-icon svg {
+  fill: var(--text-color-1);
+  stroke: var(--text-color-1); 
+  stroke-width: 10px;
+  width: 20px;
+  height: 20px
+}
+
+.nav-sub-menu-button {
+  --button-size: calc(var(--nav-size) * 0.6);
+  width: var(--button-size);
+  height: var(--button-size);
+  /* background-color: white; */
+  border: var(--border);
+  border-radius: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-sub-menu-button svg {
+  fill: var(--text-color-1);
+  stroke: var(--text-color-1);
+  stroke-width: 10px;
+  width: 20px;
+  height: 20px
+}
+
+.nav-sub-menu-button:hover {
+  filter: brightness(0.5);
+}
+
+.sub-menu-shift-down {
+  transform: translateY(var(--offset));
+}
+
+.sub-menu-shift-up {
+  transform: translateY(-(var(--offset)));
+}
+
+.sub-menu-background-blur {
+  position: fixed;
+  padding : 0;
+  margin: 0;
+  width: 100%; 
+  height: 100%;
+  background: var(--bg-color-2);
+  backdrop-filter: blur(5px);
+}
+
+@supports (backdrop-filter: none) {
+  .sub-menu-background-blur {
+    position: fixed;
+    padding : 0;
+    margin: 0;
+    width: 100%; 
+    height: 100%;
+    background: none;
+    backdrop-filter: blur(5px);
+  }
+}
+
+
+/*
+ * Scroll menu-item highlighting
+*/
+.nav-menu-item-highlight, .nav-menu-item-highlight > div {
+  color: var(--accent-color-1);
+}
+
+.nav-menu-item-highlight svg {
+  fill: var(--accent-color-1);
+  stroke: var(--accent-color-1);
+}
