@@ -1,7 +1,11 @@
 import React from 'react';
 
 import Navigation from './components/navigation/Navigation';
-import SomeRandomText from './components/SomeRandomText';
+import HomePage from './components/pages/home-page/HomePage';
+import EducationPage from './components/pages/education-page/EducationPage';
+import WorkPage from './components/pages/work-page/WorkPage';
+import ProjectsPage from './components/pages/projects-page/ProjectsPage';
+import ContactPage from './components/pages/contact-page/ContactPage';
 
 // Menu Icons (for Mobile)
 import { PAGE_HOME_ID,
@@ -13,14 +17,13 @@ import { PAGE_HOME_ID,
 function App() {  
   return (
     <div>
-      <Navigation/>
-      <div>
-        <SomeRandomText color='var(--bg-color-1)' id={PAGE_HOME_ID} />
-        <SomeRandomText color='var(--bg-color-2)'   id={PAGE_EDUCATION_ID} />
-        <SomeRandomText color='var(--bg-color-1)' id={PAGE_WORK_ID} />
-        <SomeRandomText color='var(--bg-color-2)'    id={PAGE_PROJECTS_ID} />
-        <SomeRandomText color='var(--bg-color-1)'   id={PAGE_CONTACT_ID} />
-      </div>
+      <Navigation>
+        <HomePage      id={PAGE_HOME_ID}/>
+        <EducationPage id={PAGE_EDUCATION_ID}/>
+        <WorkPage      id={PAGE_WORK_ID}/>
+        <ProjectsPage  id={PAGE_PROJECTS_ID}/>
+        <ContactPage   id={PAGE_CONTACT_ID}/>
+      </Navigation>
     </div>
   );
 }

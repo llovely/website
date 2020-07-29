@@ -26,9 +26,9 @@ code {
 
   --accent-color-1: #61DAFB;
   --accent-color-2: black;
-  --accent-color-3: #484a4d;
+  --accent-color-3: #F9AE9F;
 
-  --text-color-1: #e1deda;
+  --text-color-1: white;
   --text-color-2: black;
   --text-color-3: #61DAFB;
 
@@ -45,6 +45,11 @@ div {
 
 a {
   text-decoration: none;
+}
+
+
+section {
+  /* padding: 8rem 0; */
 }
 
 
