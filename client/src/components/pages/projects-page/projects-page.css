@@ -1,0 +1,45 @@
+
+.pp-background {
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-color-2);
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+.pp-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 8rem 0;
+    justify-content: center;
+}
+
+
+.pp-header {
+    color: var(--text-color-1);
+    font-size: 30px;
+}
+
+
+.pp-header-hr {
+    border-top: 6px solid var(--accent-color-1);
+    border-radius: 3px;
+}
+
+
+.pp-message {
+    width: 60vw;
+}
+
+
+.pp-message-uni {
+    color: var(--accent-color-3);
+}
+
+.pp-message-github:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,106 @@
+
+.cp-background {
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-color-1);
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+.cp-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 8rem 0;
+    justify-content: center;
+}
+
+
+.cp-header {
+    color: var(--text-color-1);
+    font-size: 30px;
+}
+
+
+.cp-header-hr {
+    border-top: 6px solid var(--accent-color-1);
+    border-radius: 3px;
+    /* margin-bottom: 0; */
+}
+
+
+.cp-message {
+    width: 60vw;
+}
+
+
+@media screen and (min-width: 1000px) {
+    .cp-message {
+        width: 850px;
+    }
+}
+
+.cp-text-color {
+    color: var(--accent-color-3);
+}
+
+.cp-icon-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cp-icon-text-container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: 0;
+    font-weight: bold;
+    padding-left: 1em;
+    padding-right: 1em;
+    display: inline-block;
+    justify-content: center;
+    color: var(--text-color-1);
+}
+
+.cp-icon {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: 0;
+    font-weight: bold;
+    padding-left: 1em;
+    padding-right: 1em;
+    display: inline-block;
+    justify-content: center;
+  }
+
+.cp-icon svg {
+    fill: var(--accent-color-1);
+    stroke: var(--accent-color-1); 
+    width: 40px;
+    height: 40px;
+}
+
+.cp-icon:hover {
+    filter: brightness(0.8);
+}
+
+
+.cp-copyright-message {
+    color: var(--text-color-1);
+    font-size: 20px;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}

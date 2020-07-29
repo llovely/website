@@ -1,0 +1,45 @@
+
+.ep-background {
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-color-2);
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+.ep-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 8rem 0;
+    justify-content: center;
+}
+
+
+.ep-header {
+    color: var(--text-color-1);
+    font-size: 30px;
+}
+
+
+.ep-header-hr {
+    border-top: 6px solid var(--accent-color-1);
+    border-radius: 3px;
+}
+
+
+.ep-message {
+    width: 60vw;
+}
+
+
+.ep-message-uni {
+    color: var(--accent-color-3);
+}
+
+.ep-message-uni:hover {
+    text-decoration: underline;
+}

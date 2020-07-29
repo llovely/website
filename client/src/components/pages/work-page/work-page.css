@@ -1,0 +1,36 @@
+
+.wp-background {
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg-color-1);
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+.wp-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 8rem 0;
+    justify-content: center;
+}
+
+
+.wp-header {
+    color: var(--text-color-1);
+    font-size: 30px;
+}
+
+
+.wp-header-hr {
+    border-top: 6px solid var(--accent-color-1);
+    border-radius: 3px;
+}
+
+
+.wp-message {
+    width: 60vw;
+}
