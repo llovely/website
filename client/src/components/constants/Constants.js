@@ -107,7 +107,7 @@ const MENU_BAR_ID = 'menubar';
 const LAST_SUB_MENU_ITEM_ID = "sm_last"
 
 // Name/text displayed in navigation bar
-const MENU_BAR_NAME = 'TEST_NAME';
+const MENU_BAR_NAME = 'LUIS LOVE';
 
 // Maximum width (in pixels) before the window screen is considered to be in
 // mobile view (as opposed to desktop view)
