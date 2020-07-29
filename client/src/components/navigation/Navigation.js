@@ -34,7 +34,7 @@ import { MENU_ITEMS,
          SUB_MENU_TRANSITION_OFFSET } from '../constants/Constants';
 
 
-export default function Navigation() {
+export default function Navigation(props) {
 
   // Returns the current width and height of the window
   const [width, height] = WindowSize();
@@ -100,7 +100,6 @@ export default function Navigation() {
       <NavMainMenuItem id={mainMenuItemTextID.get(x)} menuName={x} pageID={pageID.get(x)} link={isLink}/>
     );
   });
-  subMenuItems.unshift(<div id={LAST_SUB_MENU_ITEM_ID}/>)
 
 
   // Highlights menu text associated with the current displayed page
@@ -192,6 +191,8 @@ export default function Navigation() {
 
   return (
     <div>
+      {props.children}
+      <div id={LAST_SUB_MENU_ITEM_ID}/>
       {subMenuItems}
       <div>
         <Navbar id={MENU_BAR_ID}>
