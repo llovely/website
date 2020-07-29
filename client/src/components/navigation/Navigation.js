@@ -26,12 +26,14 @@ import { MENU_ITEMS,
          subMenuItemIcon,
          mainMenuItemTextID,
          PAGE_HOME_ID,
+         PAGE_CONTACT_ID,
          pageID,
          MENU_BAR_ID, 
          MENU_BAR_NAME, 
          MOBILE_WIDTH, 
          LAST_SUB_MENU_ITEM_ID,
          SUB_MENU_TRANSITION_OFFSET } from '../constants/Constants';
+import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 
 export default function Navigation(props) {
@@ -41,6 +43,9 @@ export default function Navigation(props) {
 
   // Toggles displaying the sub-menu (for mobile)
   const [showMenu, setShowMenu] = useState(false);
+
+  // Indicates if the user has reached the bottom of the website
+  const [reachedBottom, setBottomStatus] = useState(false);
 
   // Navigations JSX components
   const subMenuItems = [];
@@ -102,6 +107,17 @@ export default function Navigation(props) {
   });
 
 
+  // Determines if the bottom of the website has been reached
+  const bottomDetector = () => {
+    if (Math.round((document.documentElement.scrollTop + window.innerHeight)) < document.documentElement.scrollHeight) {
+      setBottomStatus(false);
+    }
+    else {
+      setBottomStatus(true);
+    }
+  };
+
+
   // Highlights menu text associated with the current displayed page
   const highlightMenuText = () => {
     // Obtain the y-axis position of the bottom of the menu bar
@@ -112,6 +128,9 @@ export default function Navigation(props) {
       menuPosY = menuRef.getBoundingClientRect().y;
       menuBorder = menuPosY + menuRef.getBoundingClientRect().height;
     }
+
+    // Check to see if the bottom of the website has been reached
+    bottomDetector();
 
     // Highlights corresponding menu text
     pageID.forEach((value, key, map) => {
@@ -132,21 +151,41 @@ export default function Navigation(props) {
 
         // Handles sub-menu text
         if (smtRef !== null) {
-          if (topPageY <= menuBorder && menuBorder < bottomPageY) {
-            smtRef.classList.add('nav-menu-item-highlight');
+          if (reachedBottom) {
+            if (value === PAGE_CONTACT_ID) {
+              smtRef.classList.add('nav-menu-item-highlight'); 
+            }
+            else {
+              smtRef.classList.remove('nav-menu-item-highlight');
+            }
           }
           else {
-            smtRef.classList.remove('nav-menu-item-highlight');
+            if (topPageY <= menuBorder && menuBorder < bottomPageY) {
+              smtRef.classList.add('nav-menu-item-highlight');
+            }
+            else {
+              smtRef.classList.remove('nav-menu-item-highlight');
+            }
           }
         }
 
         // Handles main-menu text
         if (mmtRef !== null) {
-          if (topPageY <= menuBorder && menuBorder < bottomPageY) {
-            mmtRef.classList.add('nav-menu-item-highlight');
-          }
+          if (reachedBottom) {
+            if (value === PAGE_CONTACT_ID) {
+              mmtRef.classList.add('nav-menu-item-highlight');
+            }
+            else {
+              mmtRef.classList.remove('nav-menu-item-highlight');
+            }
+          } 
           else {
-            mmtRef.classList.remove('nav-menu-item-highlight');
+            if (topPageY <= menuBorder && menuBorder < bottomPageY) {
+              mmtRef.classList.add('nav-menu-item-highlight');
+            }
+            else {
+              mmtRef.classList.remove('nav-menu-item-highlight');
+            }
           }
         }
       }
