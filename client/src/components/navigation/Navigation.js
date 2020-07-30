@@ -33,7 +33,6 @@ import { MENU_ITEMS,
          MOBILE_WIDTH, 
          LAST_SUB_MENU_ITEM_ID,
          SUB_MENU_TRANSITION_OFFSET } from '../constants/Constants';
-import { useBottomScrollListener } from 'react-bottom-scroll-listener';
 
 
 export default function Navigation(props) {
