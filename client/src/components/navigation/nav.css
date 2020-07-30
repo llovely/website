@@ -23,6 +23,7 @@
 .nav-sub-menu-block {
   background-color: var(--bg-color-2);
   /* border-color: var(--bg-color-2); */
+  visibility: hidden;
 }
 
 .nav-sub-menu-block:hover {
@@ -143,7 +144,7 @@
   stroke: var(--text-color-1);
   stroke-width: 10px;
   width: 20px;
-  height: 20px
+  height: 20px;
 }
 
 .nav-sub-menu-button:hover {
@@ -152,6 +153,7 @@
 
 .sub-menu-shift-down {
   transform: translateY(var(--offset));
+  visibility: visible;
 }
 
 .sub-menu-shift-up {

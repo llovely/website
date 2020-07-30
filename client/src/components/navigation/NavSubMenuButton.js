@@ -25,7 +25,7 @@ export default function NavSubMenuButton(props) {
 
   return (
     <div className={positionClass}>
-      <div className="nav-sub-menu-button" onClick={props.onClick}>
+      <div className="nav-sub-menu-button" onClick={props.onClick} tabIndex={0}>
         {props.children}
       </div>
     </div>
