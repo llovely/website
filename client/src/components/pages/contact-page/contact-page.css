@@ -10,7 +10,6 @@
     justify-content: center;
 }
 
-
 .cp-container {
     margin-top: auto;
     margin-bottom: auto;
@@ -18,12 +17,10 @@
     justify-content: center;
 }
 
-
 .cp-header {
     color: var(--text-color-1);
     font-size: 30px;
 }
-
 
 .cp-header-hr {
     border-top: 6px solid var(--accent-color-1);
@@ -31,11 +28,9 @@
     /* margin-bottom: 0; */
 }
 
-
 .cp-message {
     width: 60vw;
 }
-
 
 @media screen and (min-width: 1000px) {
     .cp-message {

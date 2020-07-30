@@ -25,8 +25,9 @@ export default function ContactPage(props) {
 
           <div className='page-row'>
             <p className='page-message cp-message'>
-              Do you have any interesting opportunities in the <span className='cp-text-color'>Chicago area</span> (or anywhere else, I'm open to possibilities)? 
-              If so, you can send me a message using the contact form below.
+              Do you have any interesting opportunities in the <span className='cp-text-color'>Chicago area</span> 
+              (or anywhere else, I'm open to all possibilities)? If so, you can send me a message using the contact 
+              form below.
             </p>
           </div> 
 
@@ -37,8 +38,7 @@ export default function ContactPage(props) {
 
           <div className='page-row'>
             <p className='page-message cp-message' style={{'margin-bottom': '0'}}>
-              If the above doesn't suit you, reach out to me via email or LinkedIn! 
-              My GitHub page is also linked below.
+              You can also find links to my email, GitHub page, and LinkedIn below.
             </p>
           </div>  
 
