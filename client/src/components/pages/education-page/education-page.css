@@ -10,7 +10,6 @@
     justify-content: center;
 }
 
-
 .ep-container {
     margin-top: auto;
     margin-bottom: auto;
@@ -18,23 +17,19 @@
     justify-content: center;
 }
 
-
 .ep-header {
     color: var(--text-color-1);
     font-size: 30px;
 }
-
 
 .ep-header-hr {
     border-top: 6px solid var(--accent-color-1);
     border-radius: 3px;
 }
 
-
 .ep-message {
     width: 60vw;
 }
-
 
 .ep-message-uni {
     color: var(--accent-color-3);
@@ -42,4 +37,61 @@
 
 .ep-message-uni:hover {
     text-decoration: underline;
+}
+
+.ep-item-container {
+    justify-content: center;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+@media screen and (max-width: 1000px) {
+    .ep-item-container {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .ep-item-container {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .ep-item-container {
+        width: 25%;
+    }
+}
+
+.ep-item-header {
+    color: var(--text-color-1);
+    font-size: 30px;
+    /* font-weight: bold; */
+}
+
+.ep-item-message {
+    color: var(--text-color-1);
+    filter: brightness(0.9);
+    font-size: 18px; 
+    /* padding-top: 0.5em;
+    padding-bottom: 0.5em; */
+    padding: 0.5em;
+}
+
+.ep-item-icon {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-top: 0;
+    font-weight: bold;
+    display: inline-block;
+    justify-content: center;
+}
+
+.ep-item-icon svg {
+    fill: var(--accent-color-3);
+    stroke: var(--accent-color-3); 
+    width: 80px;
+    height: 80px;
 }
