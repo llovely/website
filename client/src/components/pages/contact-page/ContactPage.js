@@ -25,7 +25,7 @@ export default function ContactPage(props) {
 
           <div className='page-row'>
             <p className='page-message cp-message'>
-              Do you have any interesting opportunities in the <span className='cp-text-color'>Chicago area</span> 
+              Do you have any interesting opportunities in the <span className='cp-text-color'>Chicago area </span>
               (or anywhere else, I'm open to all possibilities)? If so, you can send me a message using the contact 
               form below.
             </p>
