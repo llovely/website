@@ -14,6 +14,7 @@ import { ReactComponent as GithubIcon } from '../../../icons/github.svg';
 import { ReactComponent as LinkdInIcon } from '../../../icons/linkedin.svg';
 import './contact-page.css';
 
+
 export default function ContactPage(props) {
 
   // URLs for various contact methods
