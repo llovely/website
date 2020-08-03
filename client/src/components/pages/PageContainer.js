@@ -18,7 +18,7 @@ export default function PageContainer(props) {
     'background-image': `url(${props.backgroundImage})`,
     'background-color': `${props.backgroundColor}`
   }
-  
+
   return (
     <div className={`page-background ${props.mediaClass}`} style={moreStyles}>
       <div className={props.backgroundFilter}>
