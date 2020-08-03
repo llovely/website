@@ -1,12 +1,24 @@
+/*
+ * ContactForm.js 
+ *
+ * Website's email contact form component.
+ * 
+ * Author: Luis Love 
+*/
+
 import React, { useState } from 'react';
+import './contact-form.css';
 
 
-function ContactForm(props) {
+export default function ContactForm(props) {
 
+  // Contact form field contents to be sent
   const [name, changeName] = useState('');
   const [email, changeEmail] = useState('');
   const [message, changeMessage] = useState('');
 
+  
+  // Resets contact form fields
   const resetForm = () => {
     changeName('');
     changeEmail('');
@@ -14,21 +26,25 @@ function ContactForm(props) {
   };
 
 
+  // Updates name field
   const onNameChange = (event) => {
     changeName(event.target.value);
   }
 
 
+  // Updates email field
   const onEmailChange = (event) => {
     changeEmail(event.target.value);
   }
 
 
+  // Updates message field
   const onMessageChange = (event) => {
     changeMessage(event.target.value);
   }
 
 
+  // Sends contact form fields to webserver to send as email
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -43,33 +59,27 @@ function ContactForm(props) {
       (response) => (response.json())
     ).then((response) => {
       if (response.status === 'success') {
-        alert("Message Sent.");
+        alert("Contact Form: Message sent!");
         resetForm();
       } else if (response.status === 'fail') {
-        alert("Message failed to send.")
+        alert("Contact Form: Failed to send message.");
       }
     })
   };
-  
+
 
   return (
-    <div className="">
-      <form id="contact-form" onSubmit={handleSubmit} method="POST">
-        <div className="">
-          <input type="text" placeholder='Your Name' className="" value={name} onChange={onNameChange} />
-        </div>
-        <div className="">
-          <input type="email" placeholder='Your Email' className="" value={email} onChange={onEmailChange} />
-        </div>
-        <div className="">
-          <textarea type='message' placeholder='Your Message' className="" rows="7" value={message} onChange={onMessageChange} />
-        </div>
-        <button type="submit" className="submit-button">SUBMIT</button>
-        {/* <a type="submit" className="btn btn-primary">PINEAPPLES</a> */}
-      </form>
-    </div>
+    <form id="contact-form" onSubmit={handleSubmit} method="POST">
+      <div>
+        <input type="text" placeholder='Your Name' value={name} onChange={onNameChange} />
+      </div>
+      <div>
+        <input type="email" placeholder='Your Email' value={email} onChange={onEmailChange} />
+      </div>
+      <div>
+        <textarea type='message' placeholder='Your Message' rows="7" value={message} onChange={onMessageChange} />
+      </div>
+      <button type="submit" className="submit-button">SUBMIT</button>
+    </form>
   );
 }
-
-
-export default ContactForm;

@@ -37,6 +37,7 @@
   padding-right: 1em;
   display: inline-block;
   justify-content: center;
+  user-select: none;
 }
 
 .cp-icon svg {
