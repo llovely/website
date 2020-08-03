@@ -104,7 +104,7 @@ pageID.set(MENU_RESUME,    RESUME_LINK);
 const MENU_BAR_ID = 'menubar';
 
 // ID of last sub-menu item (used to blur background)
-const LAST_SUB_MENU_ITEM_ID = "sm_last"
+const SUB_MENU_OVERLAY_ID = "sm_last"
 
 // Name/text displayed in navigation bar
 const MENU_BAR_NAME = 'LUIS LOVE';
@@ -142,6 +142,6 @@ export {
          MENU_BAR_ID,
          MENU_BAR_NAME,
          MOBILE_WIDTH,
-         LAST_SUB_MENU_ITEM_ID,
+         SUB_MENU_OVERLAY_ID,
          SUB_MENU_TRANSITION_OFFSET
        }
