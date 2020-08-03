@@ -7,6 +7,7 @@
 */
 
 import React from 'react';
+import './nav.css';
 
 
 export default function NavSubMenuButton(props) {
@@ -25,9 +26,9 @@ export default function NavSubMenuButton(props) {
 
   return (
     <div className={positionClass}>
-      <div className="nav-sub-menu-button" onClick={props.onClick} tabIndex={0}>
+      <a className="nav-sub-menu-button" href='#submenu' onClick={props.onClick}>
         {props.children}
-      </div>
+      </a>
     </div>
   );
 }

@@ -7,6 +7,8 @@
 */
 
 import React from 'react';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+import './nav.css';
 
 
 export default function NavMenuName(props) {
@@ -28,9 +30,9 @@ export default function NavMenuName(props) {
 
   return (
     <div className={positionClass}>
-      <a href={pageID} className='nav-menu-name' onClick={props.onAppear}>
+      <AnchorLink href={pageID} className='nav-menu-name' onClick={props.onAppear}>
         {props.name}
-      </a>
+      </AnchorLink>
     </div>
   );
 }

@@ -8,16 +8,33 @@
 */
 
 import React from 'react';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+import './nav.css';
 
 
 export default function NavMainMenuItem(props) {
   return (
-    <a id={props.id} 
-       href={ (props.link === true) ? (props.pageID) : (`#${props.pageID}`) } 
-       target={ (props.link === true) ? '_blank' : '' } 
-       className='nav-main-menu-name'
-      >
-      {props.menuName}
-    </a>
+    <div>
+      {(props.link === true) ? 
+        (
+          <a id={props.id} 
+             href={props.pageID} 
+             target='_blank'
+             rel='noopener noreferrer'
+             className='nav-main-menu-name'
+            >
+            {props.menuName}
+          </a>
+        ):
+        (
+          <AnchorLink id={props.id} 
+                      href={`#${props.pageID}`} 
+                      className='nav-main-menu-name'
+            >
+            {props.menuName}
+          </AnchorLink>
+        )
+      }
+    </div>
   );
 }

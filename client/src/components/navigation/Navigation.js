@@ -4,11 +4,9 @@
  * Constructs website's main navigation bar.
  * 
  * Author: Luis Love 
- */
+*/
 
 import React, { useState, useEffect } from 'react';
-import { ReactComponent as MenuIcon } from '../../icons/menu.svg';
-import { ReactComponent as CloseIcon } from '../../icons/close_menu.svg';
 import NavMainMenu from './NavMainMenu';
 import NavSubMenuButton from './NavSubMenuButton';
 import NavMenuName from './NavMenuName';
@@ -17,6 +15,8 @@ import Navbar from './Navbar';
 import NavSubMenuBlock from './NavSubMenuBlock';
 import NavSubMenuItem from './NavSubMenuItem';
 import WindowSize from '../WindowSize';
+import { ReactComponent as MenuIcon } from '../../icons/menu.svg';
+import { ReactComponent as CloseIcon } from '../../icons/close_menu.svg';
 import { MENU_ITEMS,
          MENU_TYPE_PAGE,
          MENU_TYPE_TAB_DOWNLOAD,
@@ -31,8 +31,9 @@ import { MENU_ITEMS,
          MENU_BAR_ID, 
          MENU_BAR_NAME, 
          MOBILE_WIDTH, 
-         LAST_SUB_MENU_ITEM_ID,
+         SUB_MENU_OVERLAY_ID,
          SUB_MENU_TRANSITION_OFFSET } from '../constants/Constants';
+import './nav.css';
 
 
 export default function Navigation(props) {
@@ -56,7 +57,7 @@ export default function Navigation(props) {
       setShowMenu(false);
       subMenuItemID.forEach((value, key, map) => {
         const ref = document.getElementById(value);
-        const blurRef = document.getElementById(LAST_SUB_MENU_ITEM_ID);
+        const blurRef = document.getElementById(SUB_MENU_OVERLAY_ID);
 
         if (ref !== null && blurRef !== null) {
           ref.classList.add('sub-menu-shift-up');
@@ -208,18 +209,16 @@ export default function Navigation(props) {
     // Initiates corresponding opening/closing transition for sub-menu
     subMenuItemID.forEach((value, key, map) => {
       const ref = document.getElementById(value);
-      const blurRef = document.getElementById(LAST_SUB_MENU_ITEM_ID);
+      const blurRef = document.getElementById(SUB_MENU_OVERLAY_ID);
       if (ref !== null && blurRef !== null) {
         if (!showMenu) {
           ref.classList.add('sub-menu-shift-down');
           ref.classList.remove('sub-menu-shift-up');
-          // document.body.style.overflow = "hidden";
           blurRef.classList.add('sub-menu-background-blur');
         }
         else {
           ref.classList.add('sub-menu-shift-up');
           ref.classList.remove('sub-menu-shift-down');
-          // document.body.style.overflow = "scroll";
           blurRef.classList.remove('sub-menu-background-blur');
         }
       }
@@ -228,9 +227,7 @@ export default function Navigation(props) {
 
 
   return (
-    <div>
-      {props.children}
-      <div id={LAST_SUB_MENU_ITEM_ID}/>
+    <div id={SUB_MENU_OVERLAY_ID}>
       {subMenuItems}
       <div>
         <Navbar id={MENU_BAR_ID}>
@@ -241,7 +238,7 @@ export default function Navigation(props) {
               ) :
               (
                 <NavSubMenuButton side='left' onClick={displaySubMenu}>
-                  {!showMenu ? (<MenuIcon/>) : (<CloseIcon />)}
+                  {!showMenu ? (<MenuIcon/>) : (<CloseIcon/>)}
                 </NavSubMenuButton>
               )
             }

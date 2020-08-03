@@ -8,6 +8,8 @@
 */
 
 import React from 'react';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+import './nav.css';
 
 
 export default function NavSubMenuBlock(props) {
@@ -18,14 +20,31 @@ export default function NavSubMenuBlock(props) {
     const offset = props.offset;
 
     return (
-      <a id={props.id} 
-         href={ (props.link === true) ? (props.pageID) : (`#${props.pageID}`) } 
-         target={ (props.link === true) ? '_blank' : '' } 
-         className='nav-sub-menu-block' 
-         style={offset}
-         onClick={props.onClick}
-        >
-        {props.children}
-      </a>
+      <div>
+        {(props.link === true) ? 
+          (
+            <a id={props.id} 
+               href={props.pageID} 
+               target='_blank'
+               rel='noopener noreferrer'
+               className='nav-sub-menu-block' 
+               style={offset}
+               onClick={props.onClick}
+              >
+              {props.children}
+            </a>
+          ):
+          (
+            <AnchorLink id={props.id} 
+                        href={`#${props.pageID}`} 
+                        className='nav-sub-menu-block' 
+                        style={offset}
+                        onClick={props.onClick}
+              >
+              {props.children}
+            </AnchorLink>
+          )
+        }
+      </div>
     );
 }
