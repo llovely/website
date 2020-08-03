@@ -14,6 +14,7 @@
   right: 0;
   left: 0;
   transition: all var(--speed) ease;
+  cursor: pointer;
 }
 
 .nav-bar {
@@ -22,7 +23,6 @@
 
 .nav-sub-menu-block {
   background-color: var(--bg-color-2);
-  /* border-color: var(--bg-color-2); */
   visibility: hidden;
 }
 
@@ -64,7 +64,6 @@
  * Navigation bar name
 */
 .nav-menu-name {
-  /* padding-left: 2em;  */
   font-size: 25px;
   font-weight: bold;
   color: var(--text-color-1);
@@ -79,7 +78,6 @@
   height: 100%;
   display: flex;
   justify-content: flex-end;
-  /* ADD PADDING-RIGHT HERE FOR WHEN IN DESKTOP MODE (LOOKS BETTER)... */
 }
 
 .nav-main-menu-name {
@@ -95,10 +93,13 @@
   top: 25%;
 }
 
-.nav-main-menu-name:hover {
-  filter: brightness(1.5);
+.nav-main-menu-name-link {
+  color: var(--text-color-1);
 }
 
+.nav-main-menu-name:hover {
+  filter: brightness(0.8);
+}
 
 /*
  * Sub-menu components
@@ -131,7 +132,6 @@
   --button-size: calc(var(--nav-size) * 0.6);
   width: var(--button-size);
   height: var(--button-size);
-  /* background-color: white; */
   border: var(--border);
   border-radius: 10%;
   display: flex;
