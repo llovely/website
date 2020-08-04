@@ -46,7 +46,7 @@
 
 @media screen and (max-width: 600px) {
   .pp-item-background, .pp-item-overlay  {
-    width: 85vw;
+    width: 80vw;
     height: 300px;
   }
 }
