@@ -1,87 +1,36 @@
 
-.wp-background {
-    height: 100%;
-    width: 100%;
-    background-color: var(--bg-color-1);
-    background-position: center;
-    background-size: cover;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-}
-
-.wp-container {
-    margin-top: auto;
-    margin-bottom: auto;
-    padding: 8rem 0;
-    justify-content: center;
-}
-
-.wp-header {
-    color: var(--text-color-1);
-    font-size: 30px;
-}
-
-.wp-header-hr {
-    border-top: 6px solid var(--accent-color-1);
-    border-radius: 3px;
-}
-
-.wp-message {
-    width: 60vw;
-}
-
-.wp-item-container {
-    justify-content: center;
-    text-align: center;
-    /* margin-top: 0; */
-    /* display: flex;
-    flex-wrap: wrap; */
-    /* max-width: 500px; */
-    padding-top: 2em;
-    padding-bottom: 2em;
-    width: 50%;
-}
-
-@media screen and (max-width: 700px) {
-    .wp-item-container {
-        width: 100%;
-    }
-}
-
 .wp-item-icon {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: auto;
-    margin-top: 0;
-    font-weight: bold;
-    display: inline-block;
-    justify-content: center;
-  }
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-top: 0;
+  font-weight: bold;
+  display: inline-block;
+  justify-content: center;
+}
 
 .wp-item-icon svg {
-    width: 100px;
-    height: 100px;
+  width: 100px;
+  height: 100px;
 }
 
 .wp-item-header {
-    color: var(--text-color-1);
-    font-size: 30px;
+  color: var(--text-color-1);
+  font-size: 30px;
 }
 
 .wp-employer-name {
-    color: var(--accent-color-3);
-    font-size: 18px; 
-    padding: 0.5em;
-    display: inline-block;
+  color: var(--accent-color-3);
+  font-size: 18px;
+  padding: 0.5em;
+  display: inline-block;
 }
 
 .wp-employer-name:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .wp-item-message {
-    color: var(--text-color-1);
-    filter: brightness(0.9);
-    font-size: 18px; 
+  color: var(--text-color-1);
+  font-size: 18px;
 }
