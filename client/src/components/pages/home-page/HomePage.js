@@ -40,13 +40,13 @@ export default function HomePage() {
 
         <div className='page-row'>
           <h2 className='hp-sub-header'>
-            Progammer, Movie Buff, Whiskey Lover
+            Progammer, Movie Buff, Recent Graduate
           </h2>
         </div>
 
         <div className='page-row'>
           <h3 className='hp-employment-status'>
-            Recent Graduate / Seeking Full-Time Employment
+            Seeking Full-Time Employment
           </h3>
         </div> 
 
