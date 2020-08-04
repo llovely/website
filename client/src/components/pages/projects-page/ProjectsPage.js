@@ -24,12 +24,12 @@ export default function ProjectsPage() {
     { title: 'luislove.dev',
       desc: 'View the source code for this website.',
       gihub_url: 'https://github.com/llovely/website',
-      photo_url: `${process.env.REACT_APP_SERVER_URL}/images/website.jpg`
+      photo_url: `${process.env.REACT_APP_SERVER_URL}/images/website.png`
     },
     { title: 'dotfiles',
       desc: 'You ever get annoyed with manually installing software and packages, configuring your shell, on a new machine?',
       gihub_url: 'https://github.com/llovely/dotfiles',
-      photo_url: `${process.env.REACT_APP_SERVER_URL}/images/terminal.jpg`
+      photo_url: `${process.env.REACT_APP_SERVER_URL}/images/terminal.png`
     }
   ];
 
