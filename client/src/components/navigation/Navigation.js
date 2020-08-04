@@ -202,9 +202,10 @@ export default function Navigation(props) {
 
 
   // Displays sub-menu
-  const displaySubMenu = () => {
+  const displaySubMenu = (e) => {
     // Determines of sub-menu should be shown
     setShowMenu(!showMenu);
+    e.preventDefault();
 
     // Initiates corresponding opening/closing transition for sub-menu
     subMenuItemID.forEach((value, key, map) => {
