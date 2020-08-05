@@ -1,0 +1,83 @@
+
+.err-background {
+  height: 100vh;
+}
+
+@media (min-width: 800px) {
+  .err-background {
+    height: 100vh;
+  }
+}
+
+@media (min-width: 800px) and (max-height: 600px) {
+  .err-background {
+    height: 100%;
+  }
+}
+
+@media (max-width: 800px) and (max-height: 600px) {
+  .err-background {
+    height: 100%;
+  }
+}
+
+.err-header {
+  color: var(--text-color-1);
+  font-size: 130px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.err-message {
+  color: var(--text-color-1);
+  font-size: 20px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.err-message-return {
+  color: var(--accent-color-3);
+  text-decoration: underline;
+}
+
+.err-icon {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  stroke-width: 0.15px;
+}
+
+.err-icon svg {
+  fill: var(--text-color-1);
+  stroke: var(--text-color-1);
+  width: 200px;
+  height: 150px;
+}
+
+@media screen and (max-width: 1200px) {
+  .err-header {
+    font-size: 100px;
+  }
+
+  .err-message {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .err-header {
+    font-size: 75px;
+  }
+
+  .err-message {
+    font-size: 17px;
+    padding-top: 0.75em;
+  }
+}
