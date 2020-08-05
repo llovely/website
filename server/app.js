@@ -1,17 +1,17 @@
-// 
-// app.js
-//
-// Functions as a web-server, intended to serve the REACT front-end.
-// 
-// Author: Luis Love
-//
+/*
+ * app.js
+ *
+ * Functions as a web-server, intended to serve the REACT front-end.
+ * 
+ * Author: Luis Love
+*/
 
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 var serveIndex = require('serve-index');
 var cors = require('cors');
-
+var favicon = require('serve-favicon');
 var mailRouter = require("./routes/email");
 
 var app = express();
@@ -25,6 +25,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Provides path to favicon
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // Lists contents of 'public' directory as the server's root directory
 app.use(express.static(path.join(__dirname, 'public')));
