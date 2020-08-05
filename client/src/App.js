@@ -13,9 +13,12 @@ import EducationPage from './components/pages/education-page/EducationPage';
 import WorkPage from './components/pages/work-page/WorkPage';
 import ProjectsPage from './components/pages/projects-page/ProjectsPage';
 import ContactPage from './components/pages/contact-page/ContactPage';
+import ErrorPage from './components/pages/404-page/404Page';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 
-export default function App() {  
+// Constructs the website
+function Website() {
   return (
     <div>
       {/* Due to the blur effect on the Homepage, the navigation bar is 
@@ -27,5 +30,20 @@ export default function App() {
       <ProjectsPage/>
       <ContactPage/>
     </div>
+  );
+}
+
+
+export default function App() {  
+  return (
+    <BrowserRouter>
+      <Switch>
+        {/* Website */}
+        <Route exact path='/' component={Website}/>
+        
+        {/* 404 Error Page for all other routes */}
+        <Route path="*" component={ErrorPage}/>
+      </Switch>
+    </BrowserRouter>
   );
 }
