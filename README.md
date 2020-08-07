@@ -34,20 +34,40 @@ $ npm run client-install
 
 ## Usage:
 
-Before launching this website, two things must be addressed:
+Before launching this website, three items must be addressed:
 
 1. The ports used by the server and client are specified in Line #10 of [package.json](https://github.com/llovely/website/blob/master/package.json). Change these port numbers, if you wish.
-2. Two enviornment variables must be defined in a file called *.env* located in the [client](https://github.com/llovely/website/blob/master/client) directory (this file will not be under version control) in order for everything to function properly:
-   * REACT_APP_SERVER_URL
-   * REACT_APP_EMAIL
    
-   Example *.env* file:
+   ```
+   "start": "concurrently \"PORT=9000 npm run server\" \"PORT=3000 npm run client\""
+   ```
+
+2. A *.env* file needs to be created in the [client](https://github.com/llovely/website/blob/master/client) directory (this file will not be under version control) in order for to provide it the server's address and relevant hyperlinks. An example *.env* file is shown below:
+
    ```bash
    # Server's URL
-   REACT_APP_SERVER_URL=http://localhost:8080
+   REACT_APP_SERVER_URL=http://localhost:9000
 
-   # Your Email (so if you fork/clone this repo, I don't get emails intended for you)
-   REACT_APP_EMAIL=luis@example.com
+   # Your Email Address
+   REACT_APP_EMAIL=me@example.com
+
+   # Your Github Page URL
+   REACT_APP_GITHUB=https://github.com/my_profile
+
+   # Your LinkedIn Page URL
+   REACT_APP_LINKEDIN=https://www.linkedin.com/in/my_profile
+   ```
+
+3. A *.env* file needs to be created in the [server](https://github.com/llovely/website/blob/master/server) directory (this file will not be under version control) in order for it to be able to send emails, on request from the client's contact form. An example *.env* file is shown below:
+
+   ```bash
+   # Credentials for your SMTP Server
+   USER_EMAIL=my_email@example.com
+   USER_PASS=PASSWORD
+
+   # You may wish to send email as a differnt user (otherwise, just use the same
+   # email address as above)
+   SEND_AS_EMAIL=my_email@example.com
    ```
 
 From within the root of this repository, the commands listed below can be used to run the client and/or server:
