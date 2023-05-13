@@ -1,0 +1,29 @@
+name: Website Deployment
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Testing Placeholder (TODO)
+        run: echo "<Testing Placeholder>"
+
+  deploy:
+    name: Deploying
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH & Deploy Website
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.SSH_AWS_SERVER_IP}}
+          username: ${{secrets.SSH_SERVER_USER}}
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          script: |
+            cd ~/website/bin
+            ./docker_deploy -f ../docker-compose-aws.yml -o ""
