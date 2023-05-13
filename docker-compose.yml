@@ -3,15 +3,18 @@ version: "3.7"
 services:
   app:
     container_name: website
-    image: website/express-react-app
+    image: go-vite-react-ts-app
     build:
       context: ./src
       dockerfile: ../Dockerfile
-      args:
-        port: ${WS_SERVER_PORT:-${WS_DEFAULT_SERVER_PORT}}
+    environment:
+      - WS_SERVER_PORT=${WS_SERVER_PORT:-${WS_DEFAULT_SERVER_PORT}}
     env_file:
       - ./src/env/.env.docker
       - ./src/env/.env.docker.local
     hostname: localhost
     ports:
-      - ${WS_HOST_PORT:-${WS_DEFAULT_HOST_PORT}}:${WS_SERVER_PORT:-${WS_DEFAULT_SERVER_PORT}}
+      - target: ${WS_SERVER_PORT:-${WS_DEFAULT_SERVER_PORT}} 
+        published: ${WS_HOST_PORT:-${WS_DEFAULT_HOST_PORT}}
+        protocol: tcp
+        mode: host
