@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"path"
-	"strconv"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -238,21 +237,10 @@ func main() {
 		"Option (if included) indicates that the webserver should run in\n"+
 			"'development' mode; otherwise, it is ran in 'production' mode.",
 	)
-	flag.IntVar(
-		&port,
-		"port",
-		8000,
-		"Option indicates the specified port the server should listen on; "+
-			"if\nprovided, this port will take precedence over the port "+
-			"specified\nin the loaded environment variables.",
-	)
+
 	flag.Parse()
 
 	processEnvVariables()
-
-	if isFlagPassed("port") {
-		PORT = strconv.Itoa(port)
-	}
 
 	/*****************************************************************************
 	 * 														Logging Setup
