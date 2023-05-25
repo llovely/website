@@ -1,136 +1,38 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"flag"
 	"io"
 	"log"
+	"mime"
 	"net/http"
 	"os"
 	"path"
+	"reflect"
+	"strings"
 	"time"
 
-	"github.com/joho/godotenv"
-	// "github.com/sendgrid/sendgrid-go"
-	// "github.com/sendgrid/sendgrid-go/helpers/mail"
+	"webserver/contactemail"
+	"webserver/env"
 )
 
 // Global Constants
 const (
 	WEBSITE_PROD_BUILD_DIR = "../client/dist"
 	LOG_FILE               = "/tmp/website.log"
-	ENV_FILE               = "../env/.env"
-	ENV_LOCAL_FILE         = ENV_FILE + ".local"
-	ENV_DEV_FILE           = ENV_FILE + ".development"
-	ENV_DEV_LOCAL_FILE     = ENV_DEV_FILE + ".local"
-	ENV_PROD_FILE          = ENV_FILE + ".production"
-	ENV_PROD_LOCAL_FILE    = ENV_PROD_FILE + ".local"
+	ENV_DIR                = "../env"
 )
 
 // Global Variables
-var (
-	devMode bool
-	port    int
-	PORT    string = "4000"
-	// SENDGRID_API_KEY             string
-	// SENDGRID_SENDER_ID           string
-	// SENDGRID_SENDER_ID_FROM_NAME string
-	// CF_DETAILS_RECIPIENT_EMAIL   string
-)
-
-/*
- * The order of the provided files is significant! An environment variable
- * defined in the current file being processed will override an existing
- * environment variable from a previously processed file. All environment
- * variables from the SHELL will take precedence over environment variables
- * of the same name defined in the files.
- *
- * This behavior mimics that which is used by the `client` when processing
- * environment variables.
- */
-func loadEnvVariables(
-	fromEnv bool,
-	files ...string,
-) (envMap map[string]string, err error) {
-	envMap = map[string]string{}
-	err = nil
-
-	// Load environment variables from files.
-	for _, file := range files {
-		m, e := godotenv.Read(file)
-
-		// Only ignores "file does not exist" error.
-		if e != nil && !errors.Is(e, os.ErrNotExist) {
-			err = e
-			return
-		}
-
-		// Duplicate environment variables are overridden.
-		for k, v := range m {
-			envMap[k] = v
-		}
-	}
-
-	// Load environment variables from the enviornment.
-	if fromEnv {
-		m, e := godotenv.Read()
-		if e != nil {
-			err = e
-			return
-		}
-
-		// Duplicate environment variables are overridden.
-		for k, v := range m {
-			envMap[k] = v
-		}
-	}
-
-	return
-}
-
-func processEnvVariables() {
-
-	// The ordering here matters! See `loadEnvVariables(...)`, for more details.
-	files := []string{ENV_FILE, ENV_LOCAL_FILE}
-	if devMode {
-		files = append(files, ENV_DEV_FILE, ENV_DEV_LOCAL_FILE)
-	} else {
-		files = append(files, ENV_PROD_FILE, ENV_PROD_LOCAL_FILE)
-	}
-
-	env, err := loadEnvVariables(false, files...)
-	if err != nil {
-		log.Fatalln("ERROR: Failed to load .env variables ->", err)
-	}
-
-	// for k, v := range env {
-	// 	fmt.Printf("%s: %s\n", k, v)
-	// }
-
-	var ok bool = false
-	if PORT, ok = env["WS_SERVER_PORT"]; !ok {
-		log.Fatal("Unable to obtain PORT.")
-	}
-	// if SENDGRID_API_KEY, ok = env["SENDGRID_API_KEY"]; !ok {
-	// 	log.Fatal("Unable to obtain PORT.")
-	// }
-	// if SENDGRID_SENDER_ID, ok = env["SENDGRID_SENDER_ID"]; !ok {
-	// 	log.Fatal("Unable to obtain PORT.")
-	// }
-	// if SENDGRID_SENDER_ID_FROM_NAME, ok = env["SENDGRID_SENDER_ID_FROM_NAME"]; !ok {
-	// 	log.Fatal("Unable to obtain PORT.")
-	// }
-	// if CF_DETAILS_RECIPIENT_EMAIL, ok = env["CF_DETAILS_RECIPIENT_EMAIL"]; !ok {
-	// 	log.Fatal("Unable to obtain PORT.")
-	// }
-}
+var modeDev bool = false
 
 /*
  * The cases used correspond to known client-side routes used in the website's
  * production build.
  */
 func isClientSideRoute(route string) bool {
-	// fmt.Println("isClientSideRoute:", route)
 	switch route {
 	case "/":
 		return true
@@ -176,111 +78,221 @@ func clientSideRoutingHandler(fileServer *http.Handler) http.Handler {
 				return
 			}
 		}
+
 		(*fileServer).ServeHTTP(w, r) // file server responds to request
 	})
 }
 
 func sendContactFormEmailHandler(fileServer *http.Handler) http.Handler {
+	err := contactemail.Init(
+		env.Get("SENDGRID_API_KEY"),
+		env.Get("SENDGRID_SENDER_ID_NAME"),
+		env.Get("SENDGRID_SENDER_ID_EMAIL"),
+		env.Get("SENDGRID_RECIPIENT_NAME"),
+		env.Get("SENDGRID_RECIPIENT_EMAIL"),
+	)
+	if err != nil {
+		log.Panicf("ERROR: Failed to initialize contact form email: %s\n", err)
+	}
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		switch r.Method {
-		case http.MethodPost:
-			// log.Println("Got a POST request!")
-			// from := mail.NewEmail("Example User", "test@example.com")
-			// subject := "Sending with SendGrid is Fun"
-			// to := mail.NewEmail("Example User", "test@example.com")
-			// plainTextContent := "and easy to do anywhere, even with Go"
-			// htmlContent := "<strong>and easy to do anywhere, even with Go</strong>"
-			// message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
-			// client := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
-			// log.Println(message)
-			// log.Println(client)
-			// response, err := client.Send(message)
-			// if err != nil {
-			// 	log.Println(err)
-			// } else {
-			// 	fmt.Println(response.StatusCode)
-			// 	fmt.Println(response.Body)
-			// 	fmt.Println(response.Headers)
-			// }
-		default:
-			log.Printf(
-				"ERROR: Only %s requests permitted on `%s` route.\n",
-				http.MethodPost,
-				r.URL.Path,
-			)
-
-			// Recieved an invalid request method, MUST display custom 404 error page.
+		// Recieved an invalid request method, MUST display custom 404 error page.
+		if r.Method != http.MethodPost {
 			sendClientSideRouting404Page(&w, r, fileServer)
+			return
 		}
-	})
-}
 
-func isFlagPassed(name string) bool {
-	found := false
-	flag.Visit(func(f *flag.Flag) {
-		if f.Name == name {
-			found = true
+		log.Printf(
+			"Recieved a POST request on route '%s' to send a contact form email.\n",
+			r.URL.Path,
+		)
+
+		/***************************************************************************
+		 *                      Validates HTTP Request Headers
+		 **************************************************************************/
+		m, p, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+		// log.Println(m, p, err)
+		if err != nil {
+			switch {
+			case err.Error() == "mime: no media type":
+				log.Println("ERROR: Content-Type header was NOT provided.")
+				w.WriteHeader(http.StatusUnsupportedMediaType)
+			case err.Error() == "mime: expected slash after first token":
+				fallthrough
+			case err.Error() == "mime: expected token after slash":
+				fallthrough
+			case err.Error() == "mime: unexpected content after media subtype":
+				fallthrough
+			case err.Error() == "mime: invalid media parameter":
+				fallthrough
+			case err.Error() == "mime: duplicate parameter name":
+				fallthrough
+			case err.Error() == "mime: invalid RFC 2047 encoded-word":
+				log.Printf("ERROR: Failed parsing Content-Type header: %s\n", err)
+				w.WriteHeader(http.StatusBadRequest)
+			default:
+				log.Printf(
+					"ERROR: An error occurred when processing Content-Type header: %s\n",
+					err,
+				)
+				w.WriteHeader(http.StatusInternalServerError)
+			}
+			return
+		}
+
+		mediaType := "application/json"
+		params := map[string]string{"charset": "utf-8"}
+
+		if m != mediaType {
+			log.Printf("ERROR: Expected media type '%s'.\n", mediaType)
+			w.WriteHeader(http.StatusUnsupportedMediaType)
+			return
+		}
+
+		if !reflect.DeepEqual(p, params) {
+			log.Println("ERROR: Expected media type parameter 'charset=utf-8'.")
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+
+		/***************************************************************************
+		 *                  Validates and Parses HTTP Request Body
+		 **************************************************************************/
+		body := http.MaxBytesReader(w, r.Body, 1048576) // maximum size of 1 MB
+		decoder := json.NewDecoder(body)
+		decoder.DisallowUnknownFields()
+
+		target := new(contactemail.ContactForm)
+		err = decoder.Decode(target)
+		if err != nil {
+			var syntaxError *json.SyntaxError
+			var unmarshalTypeError *json.UnmarshalTypeError
+
+			switch {
+			case errors.Is(err, io.EOF):
+				log.Println("ERROR: Request body must not be empty.")
+				w.WriteHeader(http.StatusBadRequest)
+			case err.Error() == "http: request body too large":
+				log.Println("ERROR: Request body must not be larger than 1 MB.")
+				w.WriteHeader(http.StatusRequestEntityTooLarge)
+			case errors.As(err, &syntaxError):
+				fallthrough
+			case errors.Is(err, io.ErrUnexpectedEOF):
+				fallthrough
+			case errors.As(err, &unmarshalTypeError):
+				fallthrough
+			case strings.HasPrefix(err.Error(), "json: unknown field "):
+				log.Printf("ERROR: Failed to parse contact form details: %s\n", err)
+				w.WriteHeader(http.StatusBadRequest)
+			default:
+				log.Printf(
+					"ERROR: An error occurred when parsing contact form details: %s\n",
+					err,
+				)
+				w.WriteHeader(http.StatusInternalServerError)
+			}
+			return
+		}
+
+		// Ensures that only ONE JSON object was sent; should return io.EOF, if so.
+		err = decoder.Decode(&struct{}{}) // used an anonymous struct
+		if !errors.Is(err, io.EOF) {
+			log.Println("ERROR: Only one JSON object is permitted.")
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+
+		/***************************************************************************
+		 *                         Sends Contact Form Email
+		 **************************************************************************/
+		res, err := contactemail.Send(target)
+		if err != nil {
+			log.Printf(
+				"ERROR: An error occurred while attempting to send email: %s\n",
+				err,
+			)
+			w.WriteHeader(http.StatusInternalServerError)
+		} else {
+			if res.StatusCode >= 200 && res.StatusCode <= 299 {
+				log.Println("Contact form email was successfully sent!")
+				w.WriteHeader(res.StatusCode)
+			} else {
+				log.Println("ERROR: Failed to send contact form email.")
+				w.WriteHeader(http.StatusInternalServerError)
+			}
 		}
 	})
-	return found
 }
 
 func main() {
 
 	/*****************************************************************************
-	 * 					 Processing Command Line Options + `.env` Variables
+	 * 					 						Process Command Line Arguments
 	 ****************************************************************************/
 	flag.BoolVar(
-		&devMode,
+		&modeDev,
 		"dev",
 		false,
-		"Option (if included) indicates that the webserver should run in\n"+
-			"'development' mode; otherwise, it is ran in 'production' mode.",
+		"Indicates that the webserver should run in 'development' mode;\n"+
+			"otherwise, the webserver is ran in 'production' mode.",
 	)
-
 	flag.Parse()
 
-	processEnvVariables()
-
 	/*****************************************************************************
-	 * 														Logging Setup
+	 * 														  Logging Setup
 	 ****************************************************************************/
 	logFile, err := os.OpenFile(LOG_FILE, os.O_APPEND|os.O_RDWR|os.O_CREATE, 0644)
 	if err != nil {
 		log.Panic(err)
 	}
 	defer logFile.Close()
+
 	log.SetOutput(io.MultiWriter(os.Stdout, logFile)) // output to stdout and log
 	log.SetFlags(log.Lshortfile | log.LstdFlags)      // output options
-	log.SetPrefix("Website ")
+
+	/*****************************************************************************
+	 * 										  	Load Environment Variables
+	 ****************************************************************************/
+	mode := env.Production
+	if modeDev {
+		mode = env.Development
+	}
+
+	err = env.LoadEnv(mode, ENV_DIR, "WS_PORT", "SENDGRID_")
+	if err != nil {
+		log.Println(err)
+		return
+	}
 
 	/*****************************************************************************
 	 * 														   Routing
 	 ****************************************************************************/
+	mux := http.NewServeMux()
 
 	// Handler for serving the website's production build files.
 	fileServer := http.FileServer(http.Dir(WEBSITE_PROD_BUILD_DIR))
 
-	http.Handle("/contact-form-email", sendContactFormEmailHandler(&fileServer))
+	mux.Handle("/contact-form-email", sendContactFormEmailHandler(&fileServer))
 
 	// The "/" pattern behaves like a catch-all for all routes, here.
-	http.Handle("/", clientSideRoutingHandler(&fileServer))
+	mux.Handle("/", clientSideRoutingHandler(&fileServer))
 
 	/*****************************************************************************
 	 * 													 HTTP Server Setup
 	 ****************************************************************************/
+	port := env.Get("WS_PORT")
 	srv := &http.Server{
-		Handler:      nil,
-		Addr:         "localhost:" + PORT,
+		Handler:      mux,
+		Addr:         "localhost:" + port,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
 
-	log.Printf("HTTP server starting on PORT %s...\n", PORT)
+	log.Printf("Web server starting on PORT %s...\n", port)
 	err = srv.ListenAndServe()
 	if errors.Is(err, http.ErrServerClosed) {
-		log.Println("HTTP server was closed.")
+		log.Println("Web server was closed.")
 	} else if err != nil {
-		log.Fatalf("Error starting HTTP server: %s\n", err)
+		log.Printf("ERROR: Failed to start web server: %s\n", err)
 	}
 }
