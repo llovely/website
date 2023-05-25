@@ -11,9 +11,8 @@ export default defineConfig(({ command, mode }) => {
     envDir: envDir,
   }
   
-
   let commandConfig: UserConfigExport = undefined
-  if (command === 'serve') {
+  if (command === 'serve') { // AKA 'dev'
     commandConfig = {
       server: {
         // host: true,
@@ -21,7 +20,7 @@ export default defineConfig(({ command, mode }) => {
         strictPort: true,
         proxy: {
           '/contact-form-email': {
-            target: `http://localhost:${env.WS_SERVER_PORT}`,
+            target: `http://localhost:${env.WS_PORT}`,
             changeOrigin: true,
             // secure: true,
             // ws: true,
