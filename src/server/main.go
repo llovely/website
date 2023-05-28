@@ -36,9 +36,9 @@ func isClientSideRoute(route string) bool {
 	switch route {
 	case "/":
 		return true
-	// // Thank react-router for having to handle the extra forward slash, '/'.
-	// case "/blog", "/blog/":
-	// 	return true
+	// Thank react-router for having to handle the extra forward slash, '/'.
+	case "/blog", "/blog/":
+		return true
 	default:
 		return false
 	}
