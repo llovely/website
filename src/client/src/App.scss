@@ -1,0 +1,521 @@
+/*
+ * SASS used for App.
+ */
+
+@use "sass:map";
+@use "sass:color";
+
+
+/*******************************************************************************
+ *                                  Variables
+ ******************************************************************************/
+
+// $navbar-height: 56px;
+
+
+/*******************************************************************************
+ *                                Theme Coloring
+ ******************************************************************************/
+
+/*
+ * Default Colors (taken from node_modules/bootstrap/scss/_variables.scss)
+ *
+ * Variable names are prepended with 'cc_' so as not to override existing color
+ * variables.
+ */
+
+// Default Theme Colors
+$cc_blue:     #0d6efd;  // primary
+$cc_gray-600: #6c757d;  // secondary
+$cc_green:    #198754;  // success
+$cc_cyan:     #0dcaf0;  // info
+$cc_yellow:   #ffc107;  // warning
+$cc_red:      #dc3545;  // danger
+$cc_gray-100: #f8f9fa;  // light
+$cc_gray-900: #212529;  // dark
+
+// Default Gray Colors
+$cc_white:    #fff;
+$cc_gray-100: #f8f9fa;
+$cc_gray-200: #e9ecef;
+$cc_gray-300: #dee2e6;
+$cc_gray-400: #ced4da;
+$cc_gray-500: #adb5bd;
+$cc_gray-600: #6c757d;
+$cc_gray-700: #495057;
+$cc_gray-800: #343a40;
+$cc_gray-900: #212529;
+$cc_black:    #000;
+
+/*
+ * Custom Colors
+ *
+ * Variable names are prepended with 'cc_' so as not to override existing color
+ * variables.
+ */
+// $cc_yellow:       #cfcf31;
+// $cc_yellow-light: #fbfb3b;
+// $cc_yellow-dark:  #a0a028;
+
+/*
+ * Setting Custom Theme Colors
+ */
+$theme-colors: (
+  /* Original $theme-colors map key-value pairs, for reference */
+  // "primary":    $cc_blue,
+  // "secondary":  $cc_gray-600,
+  // "success":    $cc_green,
+  // "info":       $cc_cyan,
+  // "warning":    $cc_yellow,
+  // "danger":     #cc_red,
+  // "light":      #cc_gray-100,
+  // "dark":       #cc_gray-900,
+
+  /* Overriding original $theme-colors map (and adding new) key-value pairs */
+  "primary":       #173658,
+  "primary-light": #204a78,
+  "primary-dark":  #10273f,
+
+  "secondary":  #3e454d,
+  // "secondary-light": ,
+  // "secondary-dark": ,
+
+  "tertiary":       #cfcf31,
+  "tertiary-light": #fbfb3b,
+  "tertiary-dark":  #a0a028,
+
+  "success":    $cc_green,
+  "warning":    $cc_yellow,
+  "danger":     $cc_red,
+  "info":       $cc_cyan,
+
+  "light":      $cc_gray-100,
+  "dark":       $cc_gray-900,
+
+  /* Grayscale Text Color Gradients */
+  // TODO: Turn this into a separate map!
+  "gsc-0":  $cc_white,
+  "gsc-1":  $cc_gray-100,
+  "gsc-2":  $cc_gray-200,
+  "gsc-3":  $cc_gray-300,
+  "gsc-4":  $cc_gray-400,
+  "gsc-5":  $cc_gray-500,
+  "gsc-6":  $cc_gray-600,
+  "gsc-7":  $cc_gray-700,
+  "gsc-8":  $cc_gray-800,
+  "gsc-9":  $cc_gray-900,
+  "gsc-10": $cc_black,
+);
+
+/* 
+ * Normally this would be invoked with '~bootstrap/scss/bootstrap', but we're 
+ * working with VITE here.
+ */
+@import "node_modules/bootstrap/scss/bootstrap";
+
+
+/*******************************************************************************
+ *                                 Custom SASS
+ *
+ * The CSS properties applied here SHOULD NOT include properties relating to
+ * element positioning; element positioning properties should be applied
+ * directly using existing Bootstrap classes (d-flex, m-0, pb-3, etc.).
+ *
+ * All newly made SASS styling is marked with a 'CUSTOM-*' comment, above.
+ ******************************************************************************/
+ @function color($color) {
+  @return map-get($theme-colors, $color);
+}
+/* 
+ * These CSS variables should control the color themeing of the entire website.
+ */
+:root {
+  --theme-color-primary:    #{map.get($theme-colors, "primary")};
+  --theme-color-secondary:  #{map.get($theme-colors, "secondary")}; 
+  --theme-color-tertiary:   #{map.get($theme-colors, "tertiary")}; 
+
+  // Text Coloring
+  --text-color-light:       #{map.get($theme-colors, "gsc-1")};
+  --text-color-dark:        #{map.get($theme-colors, "gsc-9")};
+  --text-color-faded:       #{map.get($theme-colors, "gsc-5")};
+  --text-color-accent:      #{map.get($theme-colors, "tertiary")};
+  --text-color-disabled:    #{map.get($theme-colors, "gsc-5")};
+  --text-color-placeholder: #{map.get($theme-colors, "tertiary")};
+
+  // Background Coloring
+  --background-color-default:        #{color("primary")};
+  // --background-color-default:        #{map-get($theme-colors, "primary")}; 
+  --background-color-light:          #{map.get($theme-colors, "gsc-1")};
+  --background-color-dark:           #{map.get($theme-colors, "gsc-9")};
+  --background-color-form:           #{map.get($theme-colors, "gsc-9")};
+  --background-color-form-disabled:  #{map.get($theme-colors, "gsc-8")};
+
+  // Color Filter Overlay (mainly used in the .section-intro-blur-filter class)
+  --background-filter-color-light: #{rgba(map.get($theme-colors, "gsc-0"), 0.2)};
+  --background-filter-color-dark:  #{rgba(map.get($theme-colors, "gsc-10"), 0.2)};
+
+  // Image Blur Effect Intensity (mainly used in the .section-intro-blur-filter class)
+  --background-blur-amount: 10px;
+
+  // Box Shadow Coloring
+  --box-shadow-color-light:  #{rgba(map.get($theme-colors, "gsc-0"), 0.5)};
+  --box-shadow-color-dark:   #{rgba(map.get($theme-colors, "gsc-10"), 0.5)};
+  --box-shadow-color-accent: #{rgba(map.get($theme-colors, "tertiary"), 0.5)};
+  --box-shadow-color-accent-light: #{rgba(map.get($theme-colors, "tertiary"), 0.3)};
+  --box-shadow-color-accent-dark:  #{rgba(map.get($theme-colors, "tertiary"), 0.7)};
+
+  // Box Shadows
+  --box-shadow-light:  0 0 0 0.25rem var(--box-shadow-color-light);
+  --box-shadow-dark:   0 0 0 0.25rem var(--box-shadow-color-dark);
+  --box-shadow-accent: 0 0 0 0.25rem var(--box-shadow-color-accent);
+  --box-shadow-accent-light: 0 0 0 0.25rem var(--box-shadow-color-accent-light);
+  --box-shadow-accent-dark: 0 0 0 0.25rem var(--box-shadow-color-accent-dark);
+
+  // Navigation Bar Attributes
+  --navbar-text-color:             #{map.get($theme-colors, "gsc-4")};
+  --navbar-text-color-highlight:   #{map.get($theme-colors, "gsc-0")};
+  --navbar-text-color-accent:      #{map.get($theme-colors, "tertiary")};
+  --navbar-transition-duration:    250ms;
+  --navbar-background-color:       #{map.get($theme-colors, "gsc-9")};
+  --navbar-background-transparent: transparent;
+}
+
+
+body {
+  overscroll-behavior: none;
+}
+
+
+/* CUSTOM-CLASS */
+.contact-form {
+  max-width: 750px;
+
+  .form-control {
+    color: var(--text-color-light);
+    background-color: var(--background-color-form);
+    border-color: var(--text-color-light);
+
+    &:focus {
+      color: var(--text-color-light);
+      background-color: var(--background-color-form);
+      border-color: var(--background-color-form);
+      box-shadow: var(--box-shadow-accent);
+    }
+
+    &::placeholder {
+      color: var(--text-color-placeholder);
+    }
+
+    &:disabled {
+      color: var(--text-color-disabled);
+      background-color: var(--background-color-form-disabled);
+      border-color: var(--text-color-disabled);
+    }
+  }
+
+  /* CUSTOM-CLASS */
+  & .contact-form-btn-reset {
+    color: var(--text-color-light);
+    background-color: transparent;
+    border: none;
+
+    &:hover,
+    &:focus {
+      color: var(--text-color-placeholder);
+      background-color: transparent;
+    }
+
+    &:focus {
+      box-shadow: var(--box-shadow-accent);
+    }
+  }
+
+  /* CUSTOM-CLASS */
+  & .contact-form-btn-submit {
+    color: var(--text-color-placeholder);
+    background-color: var(--background-color-form);
+    border: none;
+
+    &:focus {
+      color: var(--text-color-placeholder);
+      background-color: var(--background-color-form-disabled);
+      box-shadow: var(--box-shadow-accent);
+    }
+
+    &:hover {
+      color: var(--background-color-form);
+      background-color: var(--text-color-placeholder);
+    }
+
+    &:disabled {
+      color: var(--text-color-disabled);
+      background-color: var(--background-color-form-disabled);
+      opacity: 1;
+    }
+  }
+}
+
+
+/* CUSTOM-CLASS */
+.contact-link {
+
+  &:hover {
+    filter: brightness(0.8);
+  }
+
+  & a {
+    color: var(--text-color-light);
+
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
+  }
+
+  /* CUSTOM-CLASS */
+  & .contact-link-icon svg {
+    fill: var(--text-color-accent);
+    width: 60px;
+    height: 60px;
+  }
+}
+
+
+/* CUSTOM-CLASS */
+.section {
+  // min-height: 500px;
+  scroll-margin-top: 55px;  // Pixel value found by eye
+  background-color: var(--background-color-default);
+
+  /* CUSTOM-CLASS */
+  .section-header {
+    color: white;
+  }
+
+  /* CUSTOM-CLASS */
+  .section-header-hr {
+    margin: auto;
+    width: 75px;
+    border: 2px solid var(--text-color-accent);
+    border-radius: 2px;
+    opacity: 1;
+  }
+
+  /* CUSTOM-CLASS */ 
+  &-button {
+    --sb-background-color: var(--background-color-default);
+
+    background-color: var(--sb-background-color);
+    border: none;
+    
+    &:hover,
+    &:focus {
+      background-color: var(--sb-background-color) !important;
+      box-shadow: none;
+    }
+
+    /* CUSTOM-CLASS */ 
+    &-light {
+      color: var(--text-color-dark);
+      
+      &:hover,
+      &:focus {
+        color: var(--text-color-dark) !important;
+        box-shadow: var(--box-shadow-dark);
+        // filter: brightness(0.8);
+      }
+    }
+
+    /* CUSTOM-CLASS */ 
+    &-dark {
+      color: var(--text-color-light);
+      
+      &:hover,
+      &:focus {
+        color: var(--text-color-light) !important;
+        box-shadow: var(--box-shadow-accent-dark);
+        // filter: brightness(1.2);
+      }
+    }
+  }
+
+  /* CUSTOM-CLASS */
+  &-intro { 
+    min-height: 100vh;
+    background-position: center;
+    // background-repeat: no-repeat;
+    background-size: cover;
+
+    /* CUSTOM-CLASS */
+    &-blur-filter {
+      position: relative;
+
+      &::after {        
+        -webkit-backdrop-filter: blur(var(--background-blur-amount));
+        backdrop-filter: blur(var(--background-blur-amount));
+
+        // Functions like a color filter (keep alpha value low)
+        background-color: var(--background-filter-color-light);
+
+        content: '';  // IDK why, but this must be here
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+      }
+    }
+
+    /* CUSTOM-CLASS */
+    &-no-filter {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  /* CUSTOM-CLASS */
+  &-footer {
+    // height: 10px;
+    color: var(--text-color-faded);
+    background-color: var(--background-color-default);
+  }
+}
+
+
+/* CUSTOM-MIXIN */
+@mixin navbar-default-style-mixin {
+  --nb-background-color:   var(--navbar-background-color)     !important;
+  --nb-text:               var(--navbar-text-color-highlight) !important;
+  --nb-text-hover:         var(--navbar-text-color-accent)    !important;
+  --nb-text-active:        var(--navbar-text-color-accent)    !important;
+  --nb-brand-text:         var(--navbar-text-color-highlight) !important;
+  --nb-brand-text-hover:   var(--navbar-text-color-accent)    !important;
+  --nb-toggler-box-shadow: var(--box-shadow-accent)           !important;
+  
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.8);
+  transition: all var(--navbar-transition-duration) ease-in;
+}
+
+
+/* CUSTOM-MIXIN */
+@mixin navbar-home-section-style-mixin {
+  --nb-background-color:   var(--navbar-background-transparent);
+  --nb-text:               var(--navbar-text-color);
+  --nb-text-hover:         var(--navbar-text-color-highlight);
+  --nb-text-active:        var(--navbar-text-color-accent);
+  --nb-brand-text:         var(--nb-text);
+  --nb-brand-text-hover:   var(--nb-text-hover);
+  --nb-toggler-box-shadow: var(--box-shadow-accent);
+
+  transition: all var(--navbar-transition-duration) ease-out;
+}
+
+
+/* CUSTOM-CLASS */
+.navbar-on-scroll {
+  @include navbar-default-style-mixin();
+}
+
+
+.navbar {
+  @include navbar-home-section-style-mixin();
+  
+  background-color: var(--nb-background-color);
+  
+  & .navbar-brand {
+    color: var(--nb-brand-text);
+
+    &:hover,
+    &:focus {
+      color: var(--nb-brand-text-hover);
+    }
+
+    // Removes the prominent blue/white border during focus
+    // &:focus-visible {
+    //   outline: none;
+    // }
+  }
+
+  & .nav-link {
+    color: var(--nb-text);
+
+    &:hover,
+    &:focus {
+      color: var(--nb-text-hover);
+    }
+  }
+
+  & .navbar-nav {
+    .show > .nav-link,
+    .nav-link.active {
+      color: var(--nb-text-active);
+    }
+  }
+
+  & .navbar-toggler {
+    border-width: 0px;
+
+    &:hover,
+    &:focus {
+      box-shadow: var(--nb-toggler-box-shadow);
+    }
+  }
+
+  /* CUSTOM-CLASS */
+  & .navbar-toggler-icon-custom svg {
+    fill: var(--nb-text-active);
+    stroke: var(--nb-text-active);
+    stroke-width: 10px;
+    border-color: var(--nb-text-active);
+    width: 25px;
+    height: 1.5em;
+  }
+}
+
+
+@include media-breakpoint-down(md) {
+  .navbar {
+    @include navbar-default-style-mixin();
+  }
+}
+
+
+@include media-breakpoint-up(md) {
+  .navbar-collapse {
+    transition: none;
+  }
+}
+
+.degree {
+  color: var(--text-color-light);
+
+  &-info {
+    color: var(--text-color-faded);
+    text-align: center;
+
+    & span {
+      display: inline-block;
+      width: 200px;
+      text-align: left;
+    }
+    & span:first-of-type {
+      text-align: right;
+    }
+  }
+}
+
+.employment {
+  color: var(--text-color-light);
+
+  &-info {
+    color: var(--text-color-faded);
+  }
+
+  &-icon svg {
+    fill: var(--text-color-faded);
+    width: 60px;
+    height: 60px;
+  }
+}
