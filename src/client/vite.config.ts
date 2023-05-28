@@ -27,7 +27,7 @@ export default defineConfig(({ command, mode }) => {
           'browserconfig.xml',
           'mstile-150x150.png',
           'robots.txt'
-         ],
+        ],
         manifest: {
           name: `${env.VITE_NAME} Website`,
           short_name: `${env.VITE_NAME}`,
@@ -78,5 +78,5 @@ export default defineConfig(({ command, mode }) => {
     commandConfig = {}
   }
 
-  return {...generalConfig, ...commandConfig}
+  return { ...generalConfig, ...commandConfig }
 })
